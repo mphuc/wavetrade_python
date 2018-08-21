@@ -1,0 +1,422 @@
+{% extends "layout.html" %}
+{% block title %}Smartfva - SVA COIN is Digital Cash - Furture Smart Virtual Assistant{% endblock %}
+{% block js %}
+
+<script src="/invest/static/assets/js/getinfo.js"></script>
+<script src="/invest/static/assets/js/main.js"></script>
+<script src="/invest/static/assets/js/ico.js"></script>
+<script type="text/javascript">
+   $('#datatables_history').DataTable({
+            "order": [[ 1, "desc" ]],
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            autoWidth: false, 
+              searching: false,
+              ordering: true, 
+              responsive: true, 
+              lengthChange: false, 
+              destroy: true,
+              paging: true, 
+              info: false
+
+        });
+</script>
+{% endblock %}
+{% block main %}
+
+
+<a href="#" id="ppimg" data-toggle="modal" data-target=".pop-up-2"></a>
+<div class="modal fade pop-up-2" tabindex="-1" role="dialog"  aria-hidden="true" style="z-index: 3">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content" style=" background: transparent; box-shadow: none; ">
+         <!--   <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            
+            </div> -->
+         <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style=" padding: 10px 14px; background: #b31166; opacity: 1; color: #fff; border-radius: 50%; ">×</button>
+            <img src="/invest/static/img/bb18eaf5d7e53bbb62f4.jpg" class="img-responsive img-rounded center-block" alt="">
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal fade" id="modalExchange" tabindex="-1" role="dialog" aria-labelledby="modalExchangeLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+            <h4 class="modal-title" id="ModalTransfer-label">Exchange USD to SVA</h4>
+         </div>
+         <form role="form" class="form-horizontal" id="frmTransfer" novalidate="novalidate">
+            <div class="modal-body">
+               <div class="well">
+                  <div class="text-black"> Exchange rate : <strong>1 SVA</strong> = <strong> <span class="sva_usd">0</span> USD</strong> </div>
+               </div>
+               <div class="well">
+                  <div class="text-black"> USD Profit : <strong class="usd_balance">{{ (data.float(data.user.usd_balance)) | format_usd}} USD</strong> </div>
+               </div>
+               <div class="well">
+                  <div class="text-black"> SVA Wallet : <strong class="sva_balance">{{ (data.float(data.user.sva_balance)) | format_usd}} SVA</strong> </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-md-12">Amount <small class="text-danger">(Min 15 USD)</small></label> 
+                  <div class="col-sm-6">
+                     <div class="input-group"> <input type="text" placeholder="Amount" class="form-control amount_usd" name="amount" id="amount_transfer"> <span class="input-group-addon">USD</span> </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <div class="input-group"> <input type="text" class="form-control amount_coin" readonly="" id="amount_coin_transfer" name="amount_coin"> <span class="input-group-addon">SVA</span> </div>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <button type="button" id="btn-transfer" class="btn btn-primary btnConfirm" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order">Transfer USD To SVA Wallet</button> </div>
+         </form>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="modalTransferUSDCMS" tabindex="-1" role="dialog" aria-labelledby="modalExchangeUSDCMSLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+            <h4 class="modal-title" id="ModalTransferUSDCMS-label">Exchange USD to SVA</h4>
+         </div>
+         <form role="form" class="form-horizontal" id="frmTransferUSDCMS" novalidate="novalidate">
+            <div class="modal-body">
+               <div class="well">
+                  <div class="text-black"> Exchange rate : <strong>1 SVA</strong> = <strong> <span class="sva_usd">0</span> USD</strong> </div>
+               </div>
+               <div class="well">
+                  <div class="text-black"> USD Commission : <strong class="usd_balance">{{ (data.float(data.user.sva_usd_cms)) | format_usd}} USD</strong> </div>
+               </div>
+               <div class="well">
+                  <div class="text-black"> SVA Wallet : <strong class="sva_balance">{{ (data.float(data.user.sva_balance)) | format_usd}} SVA</strong> </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-md-12">Amount <small class="text-danger">(Min 15 USD)</small></label> 
+                  <div class="col-sm-6">
+                     <div class="input-group"> <input type="text" placeholder="Amount" class="form-control amount_usd" name="amount" id="amount_transfer_usd"> <span class="input-group-addon">USD</span> </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <div class="input-group"> <input type="text" class="form-control amount_coin" readonly="" id="amount_coin_transfer_usd" name="amount_coin"> <span class="input-group-addon">SVA (20%)</span> </div>
+                     <div class="input-group"> <input type="text" class="form-control amount_coin" readonly="" id="amount_btc_transfer_usd" name="amount_btc"> <span class="input-group-addon">BTC (80%)</span> </div>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <button type="button" id="btn-transfer-usd" class="btn btn-primary btnConfirm" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order">Confirm Convert</button> </div>
+         </form>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="modalTransferSVatoUSDSVA" tabindex="-1" role="dialog" aria-labelledby="modalmodalTransferSVatoUSDSVA">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+            <h4 class="modal-title" id="ModalmodalTransferSVatoUSDSVA-label">Exchange USD to SVA</h4>
+         </div>
+         <form role="form" class="form-horizontal" id="frmTransferUSDCMS" novalidate="novalidate">
+            <div class="modal-body">
+               <div class="well">
+                  <div class="text-black"> Exchange rate : <strong>1 SVA</strong> = <strong> <span class="sva_usd">0</span> USD</strong> </div>
+               </div>
+               <div class="well">
+                  <div class="text-black"> USDSVA : <strong class="usdsva">{{ (data.float(data.user.sva_usdsva)) | format_usd}}</strong> </div>
+               </div>
+               <div class="well">
+                  <div class="text-black"> SVA Wallet : <strong class="sva_balance">{{ (data.float(data.user.sva_balance)) | format_usd}} SVA</strong> </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-md-12">Amount <small class="text-danger">(Min 5 SVA)</small></label> 
+                  <div class="col-sm-6">
+                     <div class="input-group"> <input type="text" placeholder="Amount SVA" class="form-control svato_usdsva" name="amount" id="svato_usdsva"> <span class="input-group-addon">SVA</span> </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <div class="input-group"> <input type="text" class="form-control usdsva_amount" readonly="" id="usdsva_amount" name="usdsva_amount"> <span class="input-group-addon">USDSVA</span> </div>
+                  
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <button type="button" id="btn-transferto-usdsva" class="btn btn-primary btnConfirm" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order">Confirm Convert</button> </div>
+         </form>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="modalTransferSVatoMember" tabindex="-1" role="dialog" aria-labelledby="modalmodalTransferSVatoUSDSVA">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+            <h4 class="modal-title" id="ModalmodalTransferSVatoUSDSVA-label">Tranasfer USDSVA</h4>
+         </div>
+         <form role="form" class="form-horizontal" id="frmTransferUSDCMS" novalidate="novalidate">
+            <div class="modal-body">
+          
+               <div class="well">
+                  <div class="text-black"> USDSVA : <strong class="usdsva">{{ (data.float(data.user.sva_usdsva)) | format_usd}}</strong> </div>
+               </div>
+             
+                <label for="Username" class="">Recipient's Username</label>
+               <div class="input-group">
+                  
+                   <input class="form-control" name="username_t" type="text" id="username_t" placeholder="Recipient's Username">
+                    <span class="input-group-addon btn btn-dashboard" id="checkUsername_t" >Check</span>
+                </div>
+             
+                <label for="amount" class="">Quantity in USDSVA</label>
+               <div class="input-group">
+                  
+                   <input class="form-control" name="amount_usdsva_t" type="text" id="amount_usdsva_t" placeholder="Quantity USDSVA">
+                     <span class="input-group-addon btn btn-dashboard" data-usdsva="{{ (data.float(data.user.sva_usdsva)) }}" id="Max_t" >Max</span>
+               </div>
+             <label>Password</label>
+               <div class="input-group">
+                 
+                  <input type="password" placeholder="Password" name="password_t" class="form-control" required="required" aria-required="true" id="password_t">
+                  <span class="input-group-addon btn btn-dashboard" id="" ><i class="ti-lock"></i></span>
+               </div>
+               <label>Two Factor Auth</label>
+               <div class="input-group">
+                    
+                    <input class="form-control" req placeholder="2FA Code (Only if you enabled 2FA)" name="onetime_transfer_t" id="onetime_transfer_t" type="text">
+                    <span class="input-group-addon btn btn-dashboard" id="" ><i class="ti-lock"></i></span>
+                </div>
+            </div>
+            <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <button type="button" id="btnTransferUSDSVA" class="btn btn-primary btnConfirm" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order">Confirm Transfer</button> </div>
+         </form>
+      </div>
+   </div>
+</div>
+<div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="">
+               <div class="content your-ranking">
+                  <div class="row">
+                     <div class="col-xs-12">
+                        <div class="">
+                           <p>Your ranking:
+                            <span class="rank">
+                              {% if data.user.ranking == 0 %} MEMBER {% endif %}
+                           {% if data.user.ranking == 1 %} STARTER  {% endif %}
+                           {% if data.user.ranking == 2 %} GOLD  {% endif %}
+                           {% if data.user.ranking == 3 %} PLATINUM  {% endif %}
+                           {% if data.user.ranking == 4 %} RUBY  {% endif %}
+                           {% if data.user.ranking == 5 %} DIAMOND  {% endif %}
+                           {% if data.user.ranking == 6 %} BLUE DIAMOND   {% endif %}
+                           {% if data.user.ranking == 7 %} AMBASSADOR  {% endif %}
+                           {% if data.user.ranking == 8 %} ROYAL  {% endif %}
+                            </span>
+                           
+                         </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+              
+            </div>
+         </div>
+         <div class="col-md-6 col-sm-6">
+            <div class="">
+               <div class="content ">
+                  <div class="row">
+                     <div class="col-xs-12">
+                        <div class="">
+                           <p>Refferal link:</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-footer refferal_link_re">
+                  <div class="input-group">
+                     <span class="input-group-btn">
+                        <button class="btn btn-social btn-fill btn-warning copy" data-clipboard-action="copy" data-clipboard-target="#refferal_link" type="button">
+                           <div class="icon dripicons-copy"></div>
+                           Copy
+                        </button>
+                     </span>
+                     <input id="refferal_link" class="form-control" name="refferal_link" type="text" value="{{data.refferal_link}}" readonly>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   <div class="row text-center" style="margin-top: 10px;">
+
+         <button class="btn btn-social btn-fill btn-warning" onclick="return location.href='/invest/deposit'" style="margin-bottom: 5px;"><i class="fa fa-handshake-o"></i> A-C INVESTMENT</button>
+
+         <button class="btn btn-social btn-fill btn-warning" data-toggle="modal" data-target="#modalExchange" style="margin-bottom: 5px;"><i class="fa fa-exchange" aria-hidden="true"></i> CONVERT USD  TO SVA</button>
+
+         <button class="btn btn-social btn-fill btn-warning" data-toggle="modal" data-target="#modalTransferUSDCMS" style="margin-bottom: 5px; display: none;"><i class="fa fa-exchange" aria-hidden="true"></i> CONVERT USD COMMISSION TO SVA</button>
+         <button class="btn btn-social btn-fill btn-warning" data-toggle="modal" data-target="#modalTransferSVatoUSDSVA" style="margin-bottom: 5px;><i class="fa fa-exchange" aria-hidden="true"></i> Convert SVA to USDSVA</button>
+         <button class="btn btn-social btn-fill btn-warning" data-toggle="modal" data-target="#modalTransferSVatoMember" style="margin-bottom: 5px;"><i class="fa fa-exchange" aria-hidden="true"></i> TRANSFER USDSVA</button>
+
+      </div>
+<div class="div-wallet">
+   <div class="row">
+   <!-- style="background: url(/invest/static/assets/img/api_block.jpg) 50% 0%; background-size: cover; background-repeat: no-repeat;" -->
+   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="card div-wallet-item">
+
+           <div class="coin-item-left">
+               <img src="/invest/static/img/wallet/btc.png">
+           </div>
+           <div class="coin-item-right">
+               <div>BTC</div>
+               <span class="coin-color">{{ (data.float(data.user.btc_balance)) | format_round}}</span>
+           </div>
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="card div-wallet-item">
+
+           <div class="coin-item-left">
+               <img src="/invest/static/img/wallet/ltc.png">
+           </div>
+           <div class="coin-item-right">
+               <div>LTC</div>
+               <span class="coin-color">0.00000000</span>
+           </div>
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="card div-wallet-item">
+         <div class="coin-item-left">
+               <img src="/invest/static/img/wallet/sva.png">
+           </div>
+           <div class="coin-item-right">
+               <div>SVA</div>
+               <span class="coin-color">{{ (data.float(data.user.sva_balance)) | format_usd}}</span>
+           </div>
+       
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="card div-wallet-item">
+         <div class="coin-item-left">
+               <img src="/invest/static/img/wallet/usdd.png">
+           </div>
+           <div class="coin-item-right">
+               <div>USDSVA</div>
+               <span class="coin-color">{{ (data.float(data.user.sva_usdsva)) | format_usd}}</span>
+           </div>
+       
+      </div>
+   </div>
+
+   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="card div-wallet-item">
+         <div class="coin-item-left">
+              <img src="/invest/static/img/wallet/usdd.png">
+           </div>
+           <div class="coin-item-right">
+               <div>USD</div>
+               <span class="coin-color">{{ (data.float(data.user.usd_balance)) | format_usd}}</span> USD
+           </div>
+
+
+      
+      </div>
+   </div>
+<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="card div-wallet-item">
+          <div class="coin-item-left">
+               <img src="/invest/static/img/wallet/usdd.png">
+           </div>
+           <div class="coin-item-right">
+               <div>BTC Commission</div>
+               <span class="coin-color">{{ (data.float(data.user.btc_direct_commission)) | format_round}}</span>
+           </div>
+
+   
+      </div>
+   </div>
+
+   <!-- style="background: url(/invest/static/assets/img/api_block.jpg) 50% 0%; background-size: cover; background-repeat: no-repeat;" -->
+   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="card div-wallet-item">
+
+           <div class="coin-item-left">
+               <img src="/invest/static/img/wallet/usdd.png">
+           </div>
+           <div class="coin-item-right">
+               <div>INTEREST</div>
+               <span class="coin-color">{{ (data.float(data.user.sva_static_interest)) | format_usd}}</span> USD
+           </div>
+      </div>
+   </div>
+
+   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="card div-wallet-item">
+         <div class="coin-item-left">
+              <img src="/invest/static/img/wallet/usdd.png">
+           </div>
+           <div class="coin-item-right">
+               <div>SHARING BONUS</div>
+               <span class="coin-color">{{ (data.float(data.user.sva_sharing_bonus)) | format_usd}}</span> USD
+           </div>
+
+
+      
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="card div-wallet-item">
+          <div class="coin-item-left">
+             <img src="/invest/static/img/wallet/usdd.png">
+           </div>
+           <div class="coin-item-right">
+               <div>Direct Commission</div>
+               <span class="coin-color">{{ (data.float(data.user.sva_direct_cms)) | format_usd}}</span> USD
+           </div>
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="card div-wallet-item">
+          <div class="coin-item-left">
+             <img src="/invest/static/img/wallet/usdd.png">
+           </div>
+           <div class="coin-item-right">
+               <div>Enterprise Commission</div>
+               <span class="coin-color">{{ (data.float(data.user.sva_enterprise_cms)) | format_usd}}</span> USD
+           </div>
+      </div>
+   </div>
+
+
+   
+<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="card div-wallet-item">
+          <div class="coin-item-left">
+             <img src="/invest/static/img/wallet/usdd.png">
+           </div>
+           <div class="coin-item-right">
+               <div>Total Earn</div>
+               <span class="coin-color">{{ (data.float(data.user.total_earn)) | format_usd}}</span> USD
+           </div>
+      </div>
+   </div>
+<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="card div-wallet-item">
+          <div class="coin-item-left">
+               <img src="/invest/static/img/wallet/usdd.png">
+           </div>
+           <div class="coin-item-right">
+               <div>Max Out</div>
+               <span class="coin-color">{{ (data.float(data.user.max_out)) | format_usd}}</span> USD
+           </div>
+
+   
+      </div>
+   </div>
+
+ 
+  </div>
+
+</div>
+
+
+
+{% endblock %}

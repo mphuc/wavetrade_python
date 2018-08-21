@@ -1,0 +1,164 @@
+{% extends "layout.html" %}
+{% block title %}BUY SVA | SmartFVA{% endblock %}
+{% block js %}
+
+
+<script src="/invest/static/assets/js/getinfo.js"></script>
+<script src="/invest/static/assets/js/main.js"></script>
+<script src="/invest/static/assets/js/ico.js"></script>
+
+
+
+{% endblock %}
+{% block main %}
+
+<a href="#" id="ppimg" data-toggle="modal" data-target=".pop-up-2"></a>
+<div class="modal fade pop-up-2" tabindex="-1" role="dialog"  aria-hidden="true" style="z-index: 3">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content" style=" background: transparent; box-shadow: none; ">
+         <!--   <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            
+            </div> -->
+         <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style=" padding: 10px 14px; background: #b31166; opacity: 1; color: #fff; border-radius: 50%; ">×</button>
+            <img src="#" class="img-responsive img-rounded center-block" alt="">
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="row">
+   <div class="col-md-8 col-md-offset-2">
+      <div class="input-group p-b-10">
+                                     <input id="refferal_link" class="form-control" name="refferal_link" type="text" value="{{data.refferal_link}}" readonly>
+                                     <span class="input-group-btn">
+                                         <button id="copy--address" class="btn btn-primary copy" data-clipboard-action="copy" data-clipboard-target="#refferal_link" type="button">Copy</button>
+                                     </span>
+                                 </div>
+   </div>
+</div>
+
+<div class="row">
+   <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="card card-wallet">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>BTC</p>
+                      <span class="btc_balance">
+                        {{data.user.btc_balance | format_round}}
+                      <!-- -->
+                   </span> BTC
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               <i class="ti-wallet text-warning"></i> 
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="card card-wallet">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>LTC</p>
+                      <span class="ltc_balance">
+                        {{data.user.ltc_balance | format_round}}
+                      <!-- -->
+                   </span> LTC
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               <i class="ti-wallet text-warning"></i> 
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="card card-wallet">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>SVA</p>
+                     <span class="sva_balance">{{ (data.float(data.user.sva_balance)) | format_usd}}</span> SVA
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               <i class="ti-wallet text-warning"></i> 
+            </div>
+         </div>
+      </div>
+   </div>
+  
+
+
+ 
+</div>
+<div class="row">
+   <div class="col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+      <div class="card" style=" min-height: 428px; ">
+        
+            <div class="header">
+               <h4 class="title">
+                 BUY SVA
+               </h4>
+              
+            </div>
+         
+            <div class="content">
+              
+            
+                   <label for="Username" class="">Quantity SVA<span class="text-danger"></span><small class="text-danger"></small></label>
+                     <div class="input-group">
+                        
+                         <input class="form-control" name="sva_quantity" type="text" id="sva_quantity" placeholder="Amount SVA">
+                          <span class="input-group-addon btn btn-default" >SVA</span>
+                      </div>
+                   
+                      <label for="amount" class="">Quantity in BTC <span class="text-danger">*</span> <small class="text-danger">(1 SVA = <span class="text-danger rate_sva_usd"> ...</span>)</small></label>
+                     <div class="input-group">
+                        
+                         <input class="form-control" name="btc_amount" type="text" id="btc_amount" placeholder="Quantity BTC" readonly="">
+                           <span class="input-group-addon btn btn-dashboard" data-btc="{{ (data.float(data.user.btc_balance)) }}" id="MaxBtc" >Max</span>
+                     </div>
+                
+                     <div class="form-group">
+                        <label>Password <span class="text-danger">*</span></label>
+                        <input type="password" placeholder="Password" name="password" class="form-control" required="required" aria-required="true" id="password_ico">
+                     </div>
+                     <div class="form-group">
+                      <label>Two Factor Auth <span class="text-danger">*</span></label>
+                      <input class="form-control input-no-border" placeholder="2FA Code (Required)" name="one_time_password" id="onetime_ico" type="text">
+                  </div>
+             
+                     <div class="text-center">
+                       <button type="button" id="btnBuyICO" class="btn btn-fill btn-warning btnConfirm" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing">Buy SVA</button>
+                     </div>
+               
+                
+            </div>
+         
+
+      </div>
+      
+   </div>
+   
+   
+</div>
+
+
+{% endblock %}

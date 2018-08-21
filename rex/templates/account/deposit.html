@@ -1,0 +1,497 @@
+{% extends "layout.html" %}
+{% block title %}Invest | SmartFVA{% endblock %}
+{% block js %}
+<script src="/invest/static/assets/js/script.js"></script>
+<script src="/invest/static/assets/js/getinfo.js"></script>
+<script src="/invest/static/assets/js/lending.js"></script>
+<script src="/invest/static/assets/js/main.js"></script>
+{% endblock %}
+{% block main %}
+<div class="modal fade example-modal-lg in" id="modalTerms" tabindex="-1" role="dialog" aria-labelledby="modalmodalTermsLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+            <h4 class="modal-title" id="ModalTransfer-label">Terms of use</h4>
+         </div>
+        <div class="modal-body">
+          
+<p>Our mission is to empower people financially and make the world more open and connected. This is the community of the people with a common cause to make bitcoin the most used payment system in the world.Our vision is to foster a trusted bitcoin community, more friendly than OTC, but ore involved than a bitcoin broker. To accomplish this, we demand that our members are honest and respectful to each other. For that reason, we’ve developed a set of community standards. These policies will help you to understand what type of operations allowed on SmartFVA and what type of operations violate community standards. By reading and continuing to use community site you agree to the following conditions of use.</p>
+<h2 style="color:#FA890F">Help to keep community safe</h2>
+<p>You agree not to post, upload, display or share content that we believe there is risk of physical harm or direct threats to public safety. Such content will be removed immediately and such member’s account suspended for further activity on the community portal. We have a zero tolerate policy for any form bullying or harassment. With that said, we allow you to speak freely on matters and people of public interest, but remove content that appears to purposefully target private individuals with the intention of degrading or shaming them. The only exception to this ever is when presenting factual evidence to assert claims and then it should be done in a tasteful manner. We do not condone violence nor witch hunting behavior nor mob mentality. </p>
+<p>We permit open and critical discussion of people who are featured in the news or have a large public audience based on their profession or chosen activities. We remove credible threats to public figures, as well as hate speech directed at them.</p>
+<p>We prohibit the use of SmartFVA community to facilitate or organize criminal activity that causes physical or financial harm to individuals and businesses.</p>
+<p>We do not allow you to use SmartFVA to sell or purchase regulated goods on our platform. If you post an offer to purchase or sell firearms, alcohol, tobacco or adult products, we expect you to comply with all applicable laws and carefully consider the audience for that content. Repeated abuse of this will result in a ban to the site and community portal.</p>
+<p>The service is available only to individuals who are at least 18 years old. SmartFVA may, in its sole discretion, refuse to offer the service to any person or entity. The service is not available to any users suspended or removed from the SmartFVA community – their balances will be locked and they will be required to withdraw bitcoin deposited or earned on the platform immediately. To re-activate a suspended account, we may ask for a valid reason and/or proof for further to revoke suspensionto SmartFVA services.</p>
+<p>There are certain SmartFVA web pages, and services, are available only to those members who have been authorized by us to access those services and web pages.</p>
+<h2 style="color:#FA890F">No Solicitation or Advice</h2>
+<p>Neither this website nor any of its contents shall constitute a recommendation, solicitation or offer to buy or sell any securities, assets or other financial instruments or provide any investment advice or service. The information contained in the Site has been prepared without reference to any particular User's investment requirements or financial situation.</p>
+<p>The information and services provided on the Site are not provided to, any person or entity in any jurisdiction where the provision or use thereof would be contrary to applicable laws, rules or regulations of any governmental authority.</p>
+<p>
+You acknowledge that you are not relying on the SmartFVA or any of its affiliates, or consultants in making an investment decision. Always consider seeking the advice of a qualified professional before making decisions regarding your business and/or investments. SmartFVA does not endorse any investments and shall not be responsible in any way for any transactions you enter into with other members. You agree that the SmartFVA and its affiliates, or consultants will not be liable for any loss or damages of any sort incurred as a result of any interactions between you and other SmartFVA members.</p>
+<h2 style="color:#FA890F">Risk Disclosure</h2>
+<p> Virtual currency such as Bitcoin is not legal tender, and is not backed by the government. Legislative and regulatory changes or actions at the state, federal, or international level may adversely affect the use, transfer, exchange and value of Bitcoin. Transactions in virtual currency such as Bitcoin are irreversible, and accidental transactions may not be recoverable. The volatility and unpredictability of the price of virtual currency relative to the fiat currency may result in significant loss over a short periods of time. Any technological difficulties experienced by the SmartFVA system may prevent the access or use of members virtual currency temporarily or permanently, depending on the severity of damage.</p>
+<p>There are risks associated with trading and investing. If there should be a system failure, hacking incident or technical failure these terms apply to the members.</p>
+<p>For invest, we pool the member's funds for our volatility software and trading bot. This is in case we make a loss with trading or there is any technical failure of the platform or a sudden drop in asset value that we are holding.</p>
+<p>In invest, the member agrees that they cannot terminate their contract before the term plan has ended which the member has chosen.</p>
+<p>All invest activities are reported in United States Dollars consequently members will receive all capital and interest payments in United State Dollars and not SVA which was initially lent by the member.</p>
+<p>Members should note that there is no guarantee of daily profit for invest.</p>
+<p>SmartFVA reserves the right to institute and implement new rules of paying interest and capital should SmartFVA invest fail in any way.</p>
+<p>SmartFVA reserve the right to change the invest algorithm, the interest payment and capital back system.</p>
+<p>There is no guarantee of investor's capital if the invest system fails due to any of the reasons mentioned above.</p>
+<h2 style="color:#FA890F">Submissions to the SmartFVA system</h2>
+<p>All remarks, discussions, ideas, concepts, opinion, techniques, graphics or other submissions communicated to SmartFVA and its members will be deemed propertyof the System and retained for record and research purposes. The SmartFVA system is entitled to use any Submission for any purpose, without restriction or compensation to the individual or group who has provided the Submission, unless any previous agreement is made between the System and the member or the group. </p>
+<h2 style="color:#FA890F">Encouraging respectful behavior</h2>
+<p>People use SmartFVA to share content related to bitcoin and to raise awareness about bitcoin payment system. However, we may remove certain kinds of sensitive content for safety of a bitcoin community. </p>
+<p>SmartFVA removes hate speech, which includes content that directly attacks people based on their: race, ethnicity, national origin, religious affiliation, sexual orientation, or serious disabilities or diseases.</p>
+<p>People can use SmartFVA to challenge ideas, innovations and technology. Such discussion can promote debate with greater understanding and is encouraged.</p>
+<h2 style="color:#FA890F">Keeping your account and personal information secure</h2>
+<p>We work hard to help keep your account secure and protect your personal information. By joining SmartFVA community, you agree to use your authentic name and identity on all private records maintained by the system. You may not publish the personal information of others in public view. If we discover that you have multiple SmartFVA accounts, you will be asked to remove them or face suspension. This is to prevent Sybil Attacks and abuse of the system in general.</p>
+<p>We work hard to ensure that the information you share is secure. We investigate any suspected breach of security, including fraud activity.</p>
+<h2 style="color:#FA890F">Protecting your intellectual property</h2>
+<p>SmartFVA is a community of like-minded people with common cause to make bitcoin the main payment system in the world. This is a platform for you to share and to raise awareness about bitcoin to the general public. You own all of the content and information you post on SmartFVA, and can manage your shared content in the Activity Log tool. However, before sharing content on SmartFVA, please make sure that you have the right to do so. We ask that you respect copyrights, trademarks and other legal rights of external content creators and obtain permission before reposting here or better yet, link to it and discuss the content and ideas here explicitly.</p>
+<h2 style="color:#FA890F">Reporting</h2>
+<p>The SmartFVA community is growing every day, and we strive to welcome to an environment that is free from abusive content. To do this, we rely on people like you. If you see something on SmartFVA that you believe violates our terms, please report it to us. We review things you report to make sure SmartFVA community remains safe</p>
+<p>If any local or federal Government agencies request that we intervene to remove content, we may comply. This occurs after our own legal review and only if we agree through our own determination. If the content in question is determined to be illegal, we shall place location restrictions to the relevant country or territory wishing to ban Bitcoinnect content as necessary.</p>
+<p>The materials appearing on the Site may sometimes include technical, typographical, or photographic errors. The System does not warrant that any of the materials on its website as accurate, complete or current. If you see something on SmartFVA that you believe erroneous, please report it to us and we will correct it right away. </p>
+        </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="modalExchange" tabindex="-1" role="dialog" aria-labelledby="modalExchangeLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+            <h4 class="modal-title" id="ModalTransfer-label">Exchange USD to SVA</h4>
+         </div>
+         <form role="form" class="form-horizontal" id="frmTransfer" novalidate="novalidate">
+            <div class="modal-body">
+               <div class="well">
+                  <div class="text-black"> Exchange rate : <strong>1 SVA</strong> = <strong> <span class="sva_usd">0</span> USD</strong> </div>
+               </div>
+               <div class="well">
+                  <div class="text-black"> USD Profit : <strong class="usd_balance">{{ (data.float(data.user.usd_balance)) | format_usd}} USD</strong> </div>
+               </div>
+               <div class="well">
+                  <div class="text-black"> SVA Wallet : <strong class="sva_balance">{{ (data.float(data.user.sva_balance)) | format_usd}} SVA</strong> </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-md-12">Amount <small class="text-danger">(Min 10 USD)</small></label> 
+                  <div class="col-sm-6">
+                     <div class="input-group"> <input type="text" placeholder="Amount" class="form-control amount_usd" name="amount" id="amount_transfer"> <span class="input-group-addon">USD</span> </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <div class="input-group"> <input type="text" class="form-control amount_coin" readonly="" id="amount_coin_transfer" name="amount_coin"> <span class="input-group-addon">SVA</span> </div>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <button type="button" id="btn-transfer" class="btn btn-primary btnConfirm" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order">Transfer USD To SVA Wallet</button> </div>
+         </form>
+      </div>
+   </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 ">
+      <div class="card card-wallet">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>BTC</p>
+                     <span class="btc_balance">{{ (data.float(data.user.btc_balance)) | format_round}}</span>
+                      BTC
+
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               <i class="ti-wallet text-warning"></i> 
+            </div>
+         </div>
+      </div>
+   </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 ">
+      <div class="card card-wallet">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>LTC</p>
+                     <span class="ltc_balance">{{ (data.float(data.user.ltc_balance)) | format_round}}</span>
+                      LTC
+
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               <i class="ti-wallet text-warning"></i> 
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-6 ">
+      <div class="card card-wallet">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>SVA</p>
+                     <span class="sva_balance">{{ (data.float(data.user.sva_balance)) | format_usd}}</span> SVA
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               <i class="ti-wallet text-warning"></i> 
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-6 ">
+      <div class="card card-wallet">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>USD Profit</p>
+                     <span class="usd_balance">{{ (data.float(data.user.usd_balance)) | format_usd}}</span> USD 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+              <a href="#" class="btn-dashboard" data-toggle="modal" data-target="#modalExchange"><i class="ti-angle-double-right"></i> Transfer to SVA Wallet</a> 
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="col-lg-4 col-md-4 col-sm-6 ">
+      <div class="card card-wallet">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>USDSVA</p>
+                     <span class="balance_usd_usdsva">{{ (data.float(data.user.sva_usdsva)) | format_usd}}</span> USD
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               <i class="ti-wallet text-warning"></i> 
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-6 col-sm-6">
+      <div class="card card-wallet">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Total Investment</p>
+                     <span class="total_invest">{{ (data.float(data.user.total_invest)) | format_usd}} </span> USD
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               <i class="ti-wallet text-warning"></i> 
+            </div>
+         </div>
+      </div>
+   </div>
+
+   
+ 
+  
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card" style=" min-height: 397px; ">
+              <div class="content" style=" width: 100%; height: 100%; position: relative; ">
+
+               <!-- Nav tabs -->
+<ul class="nav nav-tabs nav-tab-invest">
+  <li class="nav-item active">
+    <a class="nav-link" id="invest1-tab" data-toggle="tab" href="#tab-invest1" role="tab" aria-controls="tab-invest1" aria-selected="true">Invest </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="invest2-tab" data-toggle="tab" href="#tab-invest2" role="tab" aria-controls="tab-invest2" aria-selected="true">Invest 2</a>
+  </li>
+ 
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="tab-invest1" role="tabpanel" aria-labelledby="invest1-tab">
+         <fieldset>
+            <div class="form-group">
+               <label>Type</label>
+               <div class="select">
+                  <select class="form-control" id="type_deposit" name="type_deposit" required="required" aria-required="true">
+                     <option value="BTC">Bitcoin (BTC)</option>
+                     <option value="LTC" disabled>Litecoin (LTC)</option>
+                  </select>
+               </div>
+            </div>
+            <div class="form-group">
+               <!--  <label class="col-sm-2 control-label">invest Smartfva</label> -->
+               <div class="input-group">
+                  <span class="input-group-addon">USD</span>
+                  <input type="text" placeholder="Amount USD" class="form-control" name="usd_amount" id="usd_amount">
+               </div>
+            </div>
+            <div class="form-group">
+               <div class="row">
+                  <div class="col-md-6">
+                     <div class="input-group">
+                        <input type="text" id="sva_amount" readonly="" class="form-control" placeholder="Amount SVA" name="sva_amount">
+                        <span class="input-group-addon">SVA</span>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="input-group">
+                        <input type="text" id="btc_amount_invest" readonly="" class="form-control" placeholder="Amount SVA" name="btc_amount_invest">
+                        <span class="input-group-addon">BTC</span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="text-black">
+               <input type="checkbox" id="verifyLending" name="verify">
+               I agree and have read the  <a target="_blank" href="#" data-toggle="modal" data-target="#modalTerms">Terms
+               of use</a></label>
+            </div>
+           
+            <div class="col-sm-4">
+               <button type="button" id="btnLending" disabled="" class="btn btn-fill btn-wd btnConfirm" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order">Invest</button>
+            </div>
+         </fieldset>
+
+
+
+  </div>
+   <div class="tab-pane" id="tab-invest2" role="tabpanel" aria-labelledby="invest2-tab">
+      
+      <fieldset>
+            <div class="form-group">
+               <label>Type</label>
+               <div class="select">
+                  <select class="form-control" id="type_deposit_t" name="type_deposit_t" required="required" aria-required="true">
+                     <option value="BTC">Bitcoin (BTC)</option>
+                     <option value="LTC" disabled>Litecoin (LTC)</option>
+                  </select>
+               </div>
+            </div>
+            <div class="form-group">
+               <!--  <label class="col-sm-2 control-label">invest Smartfva</label> -->
+               <div class="input-group">
+                  <span class="input-group-addon">USD</span>
+                  <input type="text" placeholder="Amount USD" class="form-control" name="usd_amount_t" id="usd_amount_t">
+               </div>
+            </div>
+            <div class="form-group">
+               <div class="row">
+                  <div class="col-md-6">
+                     <div class="input-group" style="margin-bottom: 0px;">
+                        <input type="text" id="sva_amount_t" readonly="" class="form-control" placeholder="Amount SVA" name="sva_amount_t">
+                        <span class="input-group-addon">SVA</span>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="input-group" style="margin-bottom: 0px;">
+                        <input type="text" id="btc_amount_invest_t" readonly="" class="form-control" placeholder="Amount SVA" name="btc_amount_invest_t">
+                        <span class="input-group-addon">BTC</span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="form-group">
+               <!--  <label class="col-sm-2 control-label">invest Smartfva</label> -->
+               <div class="input-group">
+                  
+                  <input type="text" placeholder="Amount USDSVA" readonly class="form-control" name="usdsva_amount_t" id="usdsva_amount_t">
+                  <span class="input-group-addon">USDSVA</span>
+               </div>
+            <div class="form-group">
+               <label class="text-black">
+               <input type="checkbox" id="verifyLending_t" name="verify">
+               I agree and have read the  <a target="_blank" href="#" data-toggle="modal" data-target="#modalTerms">Terms
+               of use</a></label>
+            </div>
+           
+            <div class="col-sm-4">
+               <button type="button" id="btnLending_t" disabled="" class="btn btn-fill btn-wd btnConfirm" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order">Invest</button>
+            </div>
+         </fieldset>
+   </div>
+
+
+</div>
+
+               <!-- <h4 class="title">Invest</h4> -->
+               <!-- <div class="SendCommingsoon" > <div class="box-center"> <h5>Invest</h5> <h5>Coming Soon</h5> </div> </div> -->
+              
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card" style=" height: 397px; ">
+             <div class="content" style=" width: 100%; height: 100%; position: relative; ">
+               <h4 class="title">EXCHANGE RATE</h4>
+               <!-- <div class="SendCommingsoon"> <div class="box-center"> <h5>Reinvest</h5> <h5>Coming Soon</h5> </div> </div> -->
+              
+                <fieldset>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" placeholder="" class="form-control" name="btc_exchange_rate" id="btc_exchange_rate">
+                            <span class="input-group-addon btn btn-default" id=""> BTC</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" placeholder="" class="form-control" name="ltc_exchange_rate" id="ltc_exchange_rate">
+                            <span class="input-group-addon btn btn-default" id=""> LTC</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" placeholder="" class="form-control" name="usd_exchange_rate" id="usd_exchange_rate">
+                            <span class="input-group-addon btn btn-default" id=""> USD</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" placeholder="" class="form-control" name="sva_exchange_rate" id="sva_exchange_rate">
+                            <span class="input-group-addon btn btn-default" id=""> SVA</span>
+                        </div>
+                    </div>
+              
+                   
+                </fieldset>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+   <div class="col-md-12">
+      <div class="card">
+         <div class="content">
+            <h4 class="title">List Deposit</h4>
+            <div class="toolbar">
+               <!--        Here you can write extra buttons/actions for the toolbar              -->
+            </div>
+            <div class="material-datatables">
+               <table id="datatables" class="table table-striped table-no-bordered table-hover" style="width:100%;cellspacing:0">
+                  <thead>
+                     <tr>
+                        <th>Amount</th>
+                        <th>Date Add</th>
+                        <th>Total Profit</th>
+                       
+                        <th>Days Earn</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% if data.deposit %}
+                     {% for item in data.deposit %}
+                     <tr>
+                        <td>{{ item.amount_usd | format_usd}} USD</td>
+                        <td>{{ item.date_added | format_date }}</td>
+                        <td>{{ item.num_profit | format_usd}} USD</td>
+              
+                        <td><b class="text-success">{{ data.int(item.total_day_earn) }}</b></td>
+                     </tr>
+                     {% endfor %}
+                     {% endif %}
+                  </tbody>
+                  
+               </table>
+            </div>
+         </div>
+         <!-- end content-->
+      </div>
+      <!--  end card  -->
+   </div>
+   <!-- end col-md-12 -->
+</div>
+
+<div class="row">
+   <div class="col-md-12">
+      <div class="card">
+         <div class="content">
+            <h4 class="title">Pick the best plan for you</h4>
+            <div class="table-responsive">
+               <table class="table table-hover">
+                  <thead >
+                     <tr>
+                      <th>Plan</th>
+                        <th>Invest Amount</th>
+                        <th>Interest</th>
+                        <th>Sharing Bonus</th>
+                        <th>Max Out</th>
+                        
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1</td>
+                        <td>$100 - $999</td>
+                        <td><span class="text-success"> 10% per Month </span><br> </td>
+                        <td>6%</td><td>300%</td>
+                        
+                     </tr>
+                     <tr>
+                      <td>2</td>
+                        <td>$1,000 - $4,999</td>
+                        <td><span class="text-success"> 12% per Month </span></td>
+                        <td>6%</td><td>300%</td>
+                     </tr>
+                     <tr>
+                      <td>3</td>
+                        <td>$5,000 - $9,999</td>
+                        <td><span class="text-success"> 13% per Month </span><br> <span class="text-danger">+ 1% Month</span></td>
+                         <td>6%</td><td>300%</td>
+                     </tr>
+                      <tr>
+                      <td>4</td>
+                        <td>$10,000 - $19,999</td>
+                        <td><span class="text-success"> 14% per Month </span><br> <span class="text-danger">+ 2% Month</span></td>
+                         <td>6%</td><td>300%</td>
+                     </tr>
+                     <tr>
+                      <td>5</td>
+                        <td>$20,000 - $49,999</td>
+                        <td><span class="text-success"> 16% per Month </span><br> <span class="text-danger">+ 3% Month</span></td>
+                      <td>6%</td><td>300%</td>
+                     </tr>
+                     <tr>
+                      <td>6</td>
+                        <td>$50,000 - $100,000</td>
+                        <td><span class="text-success"> Up to 17% per Month </span><br> <span class="text-danger">+ 3% Month</span></td>
+                         <td>6%</td><td>300%</td>
+                     </tr>
+                    
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

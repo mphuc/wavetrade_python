@@ -1,0 +1,431 @@
+{% extends "layout.html" %}
+{% block title %}Wallet | SmartFVA{% endblock %}
+{% block js %}
+<script src="/invest/static/assets/js/script.js"></script>
+<script src="/invest/static/assets/js/getinfo.js"></script>
+<!-- <script src="/invest/static/assets/js/withdraw.js"></script> -->
+<script src="/invest/static/assets/js/wallet.js"></script>
+<script src="/invest/static/assets/js/main.js"></script>
+<script type="text/javascript">
+   // $('#modalNotificationWallet').modal();
+   $('#datatables_deposit').DataTable({
+      "order": [
+         [0, "desc"]
+      ], 
+      autoWidth: false, 
+      searching: false,
+      ordering: true, 
+      responsive: true, 
+      lengthChange: false, 
+      destroy: true,
+      paging: true, 
+      info: false
+   });
+   $('#datatables_withdraw').DataTable({
+      "order": [
+         [0, "desc"]
+      ], 
+      autoWidth: false, 
+      searching: false,
+      ordering: true, 
+      responsive: true, 
+      lengthChange: false, 
+      destroy: true,
+      paging: true, 
+      info: false
+   });
+</script>
+{% endblock %}
+{% block main %}
+<div class="modal fade" id="modalExchange" tabindex="-1" role="dialog" aria-labelledby="modalExchangeLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+            <h4 class="modal-title" id="ModalTransfer-label">Exchange USD to SVA</h4>
+         </div>
+         <form role="form" class="form-horizontal" id="frmTransfer" novalidate="novalidate">
+            <div class="modal-body">
+               <div class="well">
+                  <div class="text-black"> Exchange rate : <strong>1 SVA</strong> = <strong> <span class="sva_usd">0</span> USD</strong> </div>
+               </div>
+               <div class="well">
+                  <div class="text-black"> USD Wallet : <strong class="usd_balance">{{ (data.float(data.user.usd_balance)) | format_usd}} USD</strong> </div>
+               </div>
+               <div class="well">
+                  <div class="text-black"> SVA Wallet : <strong class="sva_balance">{{ (data.float(data.user.sva_balance)) | format_usd}} SVA</strong> </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-md-12">Amount</label> 
+                  <div class="col-sm-6">
+                     <div class="input-group"> <input type="text" placeholder="Amount" class="form-control amount_usd" name="amount" id="amount_transfer"> <span class="input-group-addon">USD</span> </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <div class="input-group"> <input type="text" class="form-control amount_coin" readonly="" id="amount_coin_transfer" name="amount_coin"> <span class="input-group-addon">SVA</span> </div>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer"> <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button> <button type="button" id="btn-transfer" class="btn btn-primary btnConfirm" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order">Transfer USD To SVA Wallet</button> </div>
+         </form>
+      </div>
+   </div>
+</div>
+<div class="row">
+  
+     <div class="col-lg-6 col-md-6 col-sm-6" style="display: none;">
+      <div class="card card-wallet" data-color="navy">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>USD Wallet</p>
+                     <span class="usd_balance">{{ (data.float(data.user.usd_balance)) | format_usd}}</span> USD <i class="btn btn-fill btn-danger ti-arrows-horizontal"  data-toggle="modal" data-target="#modalExchange" style="padding-top: 0px; padding-bottom: 0px;"></i>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+              <i class="ti-wallet text-warning"></i>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="card card-wallet">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>BTC</p>
+                     <span class="btc_balance">{{ (data.float(data.user.btc_balance)) | format_round}}</span> BTC
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               <i class="ti-wallet text-warning"></i>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="card card-wallet">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>LTC</p>
+                      <span class="ltc_balance">
+                        {{data.user.ltc_balance | format_round}}
+                      <!-- -->
+                   </span> LTC
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               <i class="ti-wallet text-warning"></i> 
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="card card-wallet">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>SVA</p>
+                     <span class="sva_balance">{{ (data.float(data.user.sva_balance)) | format_usd}}</span> SVA
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               <i class="ti-wallet text-warning"></i>
+            </div>
+         </div>
+      </div>
+   </div>
+   
+</div>
+<div class="row">
+
+  
+
+    <div class="col-md-6">
+      <div class="card">
+        
+            <div class="header">
+               <h4 class="title">
+                  Receive Bitcoin (BTC)
+               </h4>
+            </div>
+            <div class="content">
+               <p>Get address to accept Bitcoin payments</p>
+               <div class="">
+                  <input id="btc_amount_deposit" class="form-control" name="btc_amount_deposit" type="hidden" placeholder="Amount BTC Deposit">
+                  <span class="btn btn-dashboard" id="btnDepositBTC" type="button" data-toggle="modal" data-target="#modalDepositBTC" >Deposit Bitcoin (BTC)</span>
+               </div>
+                  <hr>
+            </div>
+    
+       
+            <div class="header" style=" padding-top: 0px; ">
+               <h4 class="title">
+                  Send Bitcoin (BTC)
+               </h4>
+            </div>
+            <div class="content">
+             <span class="text-danger" style="display: none;">
+               <small><i>Note: Please note that withdrawing BTC will be available after you have purchased at least 50 SVA from ICO. Otherwise, You have to wait for,January 1, 2018.</i>
+                 
+               </small>
+             </span>
+               <div class="form-group">
+                   <label for="address" class="">To BTC Address</label>
+                   <input class="form-control" name="address" type="text" id="address_btc" placeholder="Address BTC">
+               </div>
+               <div class="form-group">
+                   <label for="amount" class="">Quantity in BTC </label>
+                   <input class="form-control" name="amount" type="text" id="amount_btc" placeholder="Quantity BTC">
+                 <code>Fee: 0.001 BTC</code>
+               </div>
+          
+               <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" placeholder="Password" name="password" class="form-control" required="required" aria-required="true" id="password_btc">
+               </div>
+               <div class="form-group">
+                    <label>Two Factor Auth</label>
+                    <input class="form-control input-no-border" placeholder="2FA Code" name="one_time_password" id="onetime_btc" type="text">
+                </div>
+               <button type="button" id="btnBTCWithdraw" class="btn btn-fill btn-warning btnConfirm" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing">Withdraw</button>
+            </div>
+        
+      </div>
+      <div class="modal fade" id="modalDepositBTC" tabindex="-1" role="dialog" aria-labelledby="modalDepositBTCLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+                  <h4 class="modal-title" id="ModalTransfer-label">Deposit Bitcoin (BTC)</h4>
+               </div>
+               <form role="form" class="form-horizontal" id="frmDepBitcoin" novalidate="novalidate">
+                  <div class="modal-body">
+                     <div class="input-group">
+                          <input id="btc_address" class="form-control" name="btc_address" type="text" value="{{ data.btc_address}}" readonly>
+                          <span class="input-group-btn">
+                              <button id="copy-btc-address" class="btn btn-primary copy" data-clipboard-action="copy" data-clipboard-target="#btc_address" type="button">Copy</button>
+                          </span>
+                      </div>
+                     <p class="text-center" id="qrBTC">
+                        <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=bitcoin:{{ data.btc_address}}?amount=0" alt="Deposit Bitcoin">
+                     </p>
+                  </div>
+                  <div class="modal-footer"> <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button> </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+  
+    <div class="col-md-6">
+      <div class="card">
+        
+            <div class="header">
+               <h4 class="title">
+                  Receive Smartfva (SVA)
+               </h4>
+            </div>
+            <div class="content">
+               <p>Get address to accept Smartfva payments</p>
+               <div class="">
+                  <input id="sva_amount_deposit" class="form-control" name="sva_amount_deposit" type="hidden" placeholder="Amount SVA Deposit">
+                  <span class="btn btn-dashboard" id="btnDepositSVA" type="button" data-toggle="modal" data-target="#modalDepositSVA" >Deposit Smartfva (SVA)</span>
+               </div>
+                  <hr>
+            </div>
+    
+       
+            <div class="header" style=" padding-top: 0px; ">
+               <h4 class="title">
+                  Send SmartFva (SVA)
+               </h4>
+            </div>
+            <div class="content" style=" width: 100%; height: 100%; position: relative;">
+               <!-- <div class="SendCommingsoon"> <div class="box-center"> <h5>Coming Soon</h5> </div> </div> -->
+               <div class="alert alert-success" id="Alert" style="display: none;">
+                   <button type="button" aria-hidden="true" class="close">x
+                   </button>
+                   <span>
+                       <b> Success - </b> Please check your email to confirm withdraw"</span>
+               </div>
+               <div class="form-group">
+                   <label for="address" class="">To SVA Address</label>
+                   <input class="form-control" name="address" type="text" id="address_sva" placeholder="Address SVA">
+               </div>
+               <div class="form-group">
+                   <label for="amount" class="">Quantity in SVA <small class="text-danger">(Daily limit: <span class="text-success">{{ (data.float(data.user.current_max_daily)) | format_usd}}</span>/{{ (data.float(data.user.max_daily)) | format_usd}} SVA)</small></label>
+                   <input class="form-control" name="amount" type="text" id="amount_sva" placeholder="Quantity SVA">
+                 
+               </div>
+          
+               <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" placeholder="Password" name="password" class="form-control" required="required" aria-required="true" id="password">
+               </div>
+               <div class="form-group">
+                    <label>Two Factor Auth</label>
+                    <input class="form-control input-no-border" placeholder="2FA Code" name="one_time_password" id="onetime_sva" type="text">
+                </div>
+               <button type="button" id="btnSvaWithdraw" class="btn btn-fill btn-warning btnConfirm" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing" style=" margin-bottom: 20px; ">Withdraw</button>
+            </div>
+        
+      </div>
+      <div class="modal fade" id="modalDepositSVA" tabindex="-1" role="dialog" aria-labelledby="modalDepositSVALabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+                  <h4 class="modal-title" id="ModalTransfer-label">Deposit Smartfva (SVA)</h4>
+               </div>
+               <form role="form" class="form-horizontal" id="frmTransfer__" novalidate="novalidate">
+                  <div class="modal-body">
+                     <div class="input-group">
+                          <input id="sva_address" class="form-control" name="sva_address" type="text" value="{{ data.sva_address}}" readonly>
+                          <span class="input-group-btn">
+                              <button id="copy-sva-address" class="btn btn-primary copy" data-clipboard-action="copy" data-clipboard-target="#sva_address" type="button">Copy</button>
+                          </span>
+                      </div>
+                     <p class="text-center" id="qrSva">
+                        <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=sva:{{ data.sva_address}}?amount=0?message=SVA" alt="">
+                     </p>
+                  </div>
+                  <div class="modal-footer"> <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button> </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!--  end col-md-6  -->
+</div>
+<div class="row">
+   <div class="col-md-12">
+       <div class="card">
+         <div class="content">
+            <h4 class="title">History Deposit</h4>
+            <div class="material-datatables">
+               <table id="datatables_deposit" class="table table-striped table-no-bordered table-hover" style="width:100%;cellspacing:0">
+                  <thead>
+                     <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Tx</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% if data.tx %}
+                     {% for item in data.tx %}
+                        <td>{{ item.date_added | format_date }}</td>
+                        <td>{{ item.amount}}</td>
+                        <td>{{ item.type}}</td>
+                        {% if item.type == 'BTC' %}
+                        <td><a target="_blank" href="https://chain.so/tx/BTC/{{item.tx}}">Detail <i class="ti-link"> </i></a></td>
+                        {% endif %}
+                        {% if item.type == 'SVA' %}
+                        <td><a  href="#">Detail <i class="ti-link"> </i></a></td>
+                        {% endif %}
+                     </tr>
+                     {% endfor %}
+                     {% endif %}
+                  </tbody>
+                 
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="row">
+   <div class="col-md-12">
+      <div class="card">
+         <div class="content">
+            <h4 class="title">History Withdraw</h4>
+            <div class="toolbar">
+               <!--        Here you can write extra buttons/actions for the toolbar              -->
+            </div>
+            <div class="material-datatables">
+               <table id="datatables_withdraw" class="table table-striped table-no-bordered table-hover" style="width:100%;cellspacing:0">
+                  <thead>
+                     <tr>
+                       
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Wallet</th>
+                        <th>Currency</th>
+                        <th>Status</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% if data.withdraw %}
+                     {% for item in data.withdraw %}
+                        <td>{{ item.date_added | format_date }}</td>
+                        <td>{{ item.amount}}</td>
+                        <td>{{ item.wallet}}</td>
+                        <td>{{ item.type}}</td>
+                        {% if item.status == 0 %}
+                        <td>Pending</td>
+                        {% else %}
+                        
+                          {% if item.type == 'BTC' %}
+                          <td><a target="_blank" href="https://blockchain.info/vi/tx/{{item.tx}}">Success</a></td>
+                          {% endif %}
+                          {% if item.type == 'SVA' %}
+                          <td><a  href="#">Success  </i></a></td>
+                          {% endif %}
+                        {% endif %}
+                     </tr>
+                     {% endfor %}
+                     {% endif %}
+                  </tbody>
+                  
+               </table>
+            </div>
+         </div>
+         <!-- end content-->
+      </div>
+      <!--  end card  -->
+   </div>
+   <!-- end col-md-12 -->
+</div>
+<div id="modalNotificationWallet" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Important announcement</h4>
+         </div>
+         <div class="modal-body">
+          
+            <p>Btc transfer now cost a high fee, we increase withdraw fee to 0.002 btc. So it would be better if you wait until it returns to 0.0005 btc when the network is less busy. We hope to decrease the withdraw fee soon. </p>
+            <p>
+                Thanks for you acknowledge of this problem.
+            </p>
+            <p>
+              SVA Team
+            
+            </p>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-fill btn-warning" data-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

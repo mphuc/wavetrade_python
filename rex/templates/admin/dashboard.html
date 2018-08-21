@@ -1,0 +1,82 @@
+{% extends "layout_admin.html" %}
+{% block title %}Dash{% endblock %}
+
+{% block js %}
+{% endblock %}
+	
+
+{% block main %}
+
+   <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6">
+      <div class="card card-wallet" data-color="navy">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Total User</p>
+                     <span class="usd_balance">{{ (data.total_user) | number_format}}</span> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-6">
+      <div class="card card-wallet" data-color="navy">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Total Lending</p>
+                     <span class="usd_balance">{{ (data.total_lending) | number_format}}</span> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-6">
+      <div class="card card-wallet" data-color="navy">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Total BTC Deposit</p>
+                     <span class="usd_balance">{{ (data.total_btc) | number_format}}</span> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               
+            </div>
+         </div>
+      </div>
+   </div>
+   </div>
+    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="content">
+                                </div>
+                                   
+                            </div>
+                            <!--  end card  -->
+                        </div>
+                        <!-- end col-md-12 -->
+                    </div>
+
+{% endblock %}
+
